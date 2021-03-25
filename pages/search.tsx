@@ -9,7 +9,7 @@ import { SearchBar } from '../components/SearchBar'
 import { RecipeLink } from '../components/RecipeLink'
 import { getRecipesByKeyword } from '../lib/get_recipe_by_keyword';
 import type {Response} from '../lib/get_all_recipes'
-import _ from 'lodash';
+
 
 type Props = {
     response: Response

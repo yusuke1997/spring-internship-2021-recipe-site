@@ -8,7 +8,7 @@ import type {Response} from '../lib/get_all_recipes'
 import {RecipeLink} from '../components/RecipeLink'
 import { SearchBar } from '../components/SearchBar';
 import { useRouter } from 'next/router';
-import lodash from 'lodash';
+
 
 type Props = {
   response: Response
