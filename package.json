@@ -1,5 +1,5 @@
 {
-  "name": "sakai-spring-internship-2021-recipe-site",
+  "name": "spring-internship-2021-recipe-site",
   "version": "1.0.0",
   "description": "Cookpad Online Spring Internship 2021 のリポジトリです。インターンシップ参加者はこのリポジトリを fork してアプリケーションを実装してください。",
   "main": "index.js",
