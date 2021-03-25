@@ -1,0 +1,22 @@
+{
+  "name": "sakai-spring-internship-2021-recipe-site",
+  "version": "1.0.0",
+  "description": "Cookpad Online Spring Internship 2021 のリポジトリです。インターンシップ参加者はこのリポジトリを fork してアプリケーションを実装してください。",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yusuke1997/spring-internship-2021-recipe-site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yusuke1997/spring-internship-2021-recipe-site/issues"
+  },
+  "homepage": "https://github.com/yusuke1997/spring-internship-2021-recipe-site#readme"
+}
