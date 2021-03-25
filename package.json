@@ -19,6 +19,7 @@
     "url": "https://github.com/yusuke1997/spring-internship-2021-recipe-site/issues"
   },
   "homepage": "https://github.com/yusuke1997/spring-internship-2021-recipe-site#readme",
+  "keywords": [],
   "dependencies": {
     "next": "^10.0.9",
     "react": "^17.0.2",
