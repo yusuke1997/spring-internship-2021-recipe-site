@@ -6,7 +6,7 @@ type Props = {
     recipe: Recipe
 }
 
-export const RecipeLink: FC<Props> = (props) => {
+export const LinkJA: FC<Props> = (props) => {
     return (
         <div className="mx-auto w-5/6">
         <Link href="/recipes/[id]" as={`/recipes/${props.recipe.id}`}>

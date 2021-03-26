@@ -2,12 +2,14 @@ import React from 'react'
 import {useEffect, useState,FC} from 'react'
 import Link from "next/link";
 import { GetServerSideProps, NextPage } from "next";
-import {getAllRecipe} from "../lib/get_all_recipes"
-import type {Recipe} from '../types/recipe'
-import type {Response} from '../lib/get_all_recipes'
-import {RecipeLink} from '../components/RecipeLink'
-import { SearchBar } from '../components/SearchBar';
+import {getAllRecipe} from "../../lib/get_all_recipes"
+import type {Recipe} from '../../types/recipe'
+import type {Response} from '../../lib/get_all_recipes'
+import { SearchBar } from '../../components/SearchBar';
 import { useRouter } from 'next/router';
+import { getAllRecipeEn } from '../../lib/get_all_recipes_en';
+import { RecipeLinkEn } from '../../components/RecipeLinkEn';
+import { SearchBarEn } from '../../components/SearchBarEn';
 
 
 type Props = {
@@ -28,22 +30,22 @@ const Home: NextPage<Props> = (props) => {
        <h1>My Recipe Site</h1>
        <Link
               href = {{
-                  pathname: '/en',
+                  pathname: '/',
                   query: {page: props.page}
               }}
-              >English</Link>
-              
-      <SearchBar />
+       >Japanese</Link>
+
+      <SearchBarEn />
       {
       recipes.map((recipe, i) => (
-                    <div key={i}><RecipeLink recipe={recipe} /></div>
+                    <div key={i}><RecipeLinkEn recipe={recipe} /></div>
                 ))
       }
       {
           (() => {
               if(prev !== undefined) return <Link
               href = {{
-                  pathname: '/',
+                  pathname: '/en',
                   query: {page: prev}
               }}
               >PREV</Link>
@@ -54,7 +56,7 @@ const Home: NextPage<Props> = (props) => {
           (() => {
               if(next !== undefined) return <Link
               href = {{
-                  pathname: '/',
+                  pathname: '/en',
                   query: {page: next}
               }}
               >NEXT</Link>
@@ -71,14 +73,14 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   if(isNaN(page)){
     return {
       props: {
-        response: await getAllRecipe(1, process.env.API_KEY),
+        response: await getAllRecipeEn(1, process.env.API_KEY),
         page:1
       },
     }
   }else{
     return {
       props:{
-        response: await getAllRecipe(page, process.env.API_KEY),
+        response: await getAllRecipeEn(page, process.env.API_KEY),
         page:page
       }
     }

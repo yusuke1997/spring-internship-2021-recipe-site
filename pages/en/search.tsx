@@ -5,16 +5,19 @@ import Link from 'next/link';
 import React ,{useEffect,useState,FC} from 'react';
 import {resourceUsage} from 'node:process';
 
-import { SearchBar } from '../components/SearchBar'
-import { RecipeLink } from '../components/RecipeLink'
-import { getRecipesByKeyword } from '../lib/get_recipe_by_keyword';
-import type {Response} from '../lib/get_all_recipes'
+import { SearchBar } from '../../components/SearchBar'
+import { RecipeLink } from '../../components/RecipeLink'
+import { getRecipesByKeyword } from '../../lib/get_recipe_by_keyword';
+import type {Response} from '../../lib/get_all_recipes'
+import { getRecipesByKeywordEn } from '../../lib/get_recipe_by_keyword_en';
+import { SearchBarEn } from '../../components/SearchBarEn';
+import { RecipeLinkEn } from '../../components/RecipeLinkEn';
 
 
 type Props = {
     response: Response
-    page,
-    keyword:string
+    title
+    page
   };
 
 const SearchPage: NextPage<Props> = (props) => {
@@ -22,36 +25,36 @@ const SearchPage: NextPage<Props> = (props) => {
     let prev, next;
     if(props.response.links.prev !== undefined) prev = props.response.links.prev.split("=").pop();
     if(props.response.links.next !== undefined) next = props.response.links.next.split("=").pop();
-    //console.log(props.response);
-    //console.log(next);
+    console.log(props.response)
     const router = useRouter();
     let title_next = props.response.links.next;
-    let title;
-    if(title_next !== undefined){
-        title = decodeURI(title_next);
-        title = title?.toString().split('=')[1].split('&')[0];
-        title = title+'の検索結果'
-    }
+    let title = 'Search Result of '+props.response.en;
+    //if(title_next !== undefined){
+    //    title = decodeURI(title_next);
+    //    title = title?.toString().split('=')[1].split('&')[0];
+    //    title = 'Search Result of '+title
+    //}
     
     if(recipes.length == 0){
-        title = '検索結果がありません'
+        title = 'No Result'
     }
 
     return (
       <div>
         <h1>My Recipe Site</h1>
+
         <Link
               href = {{
-                  pathname: '/en/search',
-                  query: {page: props.page,keyword:props.keyword}
+                  pathname: '/search',
+                  query: {page: props.page,keyword:props.response.ja}
               }}
-       >English</Link>
+       >Japanese</Link>
 
-        <SearchBar />
+        <SearchBarEn />
         <h2>{title}</h2>
         {
         recipes.map((recipe, i) => (
-                      <div key={i}><RecipeLink recipe={recipe} /></div>
+                      <div key={i}><RecipeLinkEn recipe={recipe} /></div>
                   ))
         }
 
@@ -59,7 +62,7 @@ const SearchPage: NextPage<Props> = (props) => {
             (() => {
                 if(prev !== undefined) return <Link
                 href = {{
-                    pathname: '/search',
+                    pathname: '/en/search',
                     query: {keyword: router.query.keyword,page: prev}
                 }}
                 >PREV</Link>
@@ -70,7 +73,7 @@ const SearchPage: NextPage<Props> = (props) => {
             (() => {
                 if(next !== undefined) return <Link
                 href = {{
-                    pathname: '/search',
+                    pathname: '/en/search',
                     query: {keyword: router.query.keyword,page: next}
                 }}
                 >NEXT</Link>
@@ -86,7 +89,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     const page = Number(context.query?.page); //pageパラメーターを受け取る
 
     console.log(keyword);
-    console.log(page);
     if(keyword === undefined || keyword === null) {
         return {
             redirect: {
@@ -96,23 +98,21 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         }
     }
     if(isNaN(page)) { //不正なパラメーターならデフォルトとして1を返す
-        console.log('######################');
         return {
             props: {
-                response: await getRecipesByKeyword(encodeURIComponent(keyword), 1, process.env.API_KEY),
+                response: await getRecipesByKeywordEn(encodeURIComponent(keyword), 1, process.env.API_KEY),
+                title:keyword,
                 page:1,
-                keyword:keyword
             }
             
         }
     }
     else {
-        console.log('******************');
         return { //ページパラメーターが存在するなら対応したデータを返す
             props: {
-                response: await getRecipesByKeyword(encodeURIComponent(keyword), page, process.env.API_KEY),
-                page:page,
-                keyword:keyword
+                response: await getRecipesByKeywordEn(encodeURIComponent(keyword), page, process.env.API_KEY),
+                title:keyword,
+                page:page
             }
             
         };

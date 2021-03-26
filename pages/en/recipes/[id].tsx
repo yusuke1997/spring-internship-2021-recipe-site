@@ -1,6 +1,7 @@
 import {GetServerSideProps,NextPage} from 'next';
-import type {Recipe} from "../../types/recipe";
-import {getRecipeById} from "../../lib/get_recipe_by_id"
+import type {Recipe} from "../../../types/recipe";
+import {getRecipeById} from "../../../lib/get_recipe_by_id"
+import { getRecipeByIdEn } from '../../../lib/get_recipe_by_id_en';
 import Link from 'next/link';
 
 type Props = {
@@ -12,30 +13,31 @@ const RecipePage: NextPage<Props> = (props) => {
   const { recipe } = props;
   let author = recipe.author.user_name;
   if(author==''){
-    author = 'ゲストユーザ';
+    author = 'Guest User';
   }
 
   return (
     <div>
       <h1>My Recipe Site</h1>
       <Link
-          href = {{
-              pathname: '/en/recipes/'+props.page
-           }}
-       >English</Link>
+              href = {{
+                  pathname: '/recipes/'+props.page
+              }}
+       >Japanese</Link>
+
       {recipe && (
         <main>
           {recipe?.image_url ?
                      <img src={ props.recipe.image_url } className="img-thumbnail" alt="picture" width='300' /> :
                      <img src={ 'https://vegan.jpn.com/wp-content/themes/kale-child/images/no-image.png' } className="img-thumbnail" alt="picture" width='300' />
                 }
-                
+          
           <h2>{recipe.title}</h2>
-          <p>製作者:{author}</p>
-          <p>最終更新日:{recipe.published_at.split('T')[0]}</p>
+          <p>Author:{author}</p>
+          <p>Last Update:{recipe.published_at.split('T')[0]}</p>
           <p>{recipe.description}</p>
 
-          <h3>材料</h3>
+          <h3>Ingredients</h3>
           <ol>
             {recipe.ingredients.map((ing, i) => (
               <li key={i}>
@@ -44,7 +46,7 @@ const RecipePage: NextPage<Props> = (props) => {
             ))}
           </ol>
 
-          <h3>手順</h3>
+          <h3>Steps</h3>
           <ol>
             {recipe.steps.map((step, i) => (
               <li key={i}>{step}</li>
@@ -63,7 +65,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   } else {
-    const recipe = await getRecipeById(id,'remark-fish-magician');
+    const recipe = await getRecipeByIdEn(id,'remark-fish-magician');
     return {
       props: {
         recipe: recipe,

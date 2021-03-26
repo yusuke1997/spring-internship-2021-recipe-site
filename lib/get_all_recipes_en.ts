@@ -13,8 +13,8 @@ export type Response ={
     en:string;
 }
 
-export async function getAllRecipe(page_num: number,  api_key: string): Promise<Response> {
-    let url = `https://internship-recipe-api.ckpd.co/recipes?page=${page_num}`;
+export async function getAllRecipeEn(page_num: number,  api_key: string): Promise<Response> {
+    let url = `https://b0759f7ed7f9.ngrok.io/recipes/?page=${page_num}`;
     const response = await fetch(
       url,
       {headers: {"x-api-key" : api_key}}
