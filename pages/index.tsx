@@ -25,7 +25,7 @@ const Home: NextPage<Props> = (props) => {
   //const [number, setNumber] = useState<number>(1);
   return (
     <div>
-       <h1>My Recipe Site</h1>
+       <Link href='/'><h1>My Recipe Site</h1></Link> 
        <Link
               href = {{
                   pathname: '/en',

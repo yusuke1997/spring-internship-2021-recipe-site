@@ -39,7 +39,7 @@ const SearchPage: NextPage<Props> = (props) => {
 
     return (
       <div>
-        <h1>My Recipe Site</h1>
+        <Link href='/'><h1>My Recipe Site</h1></Link>
         <Link
               href = {{
                   pathname: '/en/search',

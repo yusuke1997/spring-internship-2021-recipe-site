@@ -2,6 +2,7 @@ import {GetServerSideProps,NextPage} from 'next';
 import type {Recipe} from "../../types/recipe";
 import {getRecipeById} from "../../lib/get_recipe_by_id"
 import Link from 'next/link';
+import { SearchBar } from '../../components/SearchBar';
 
 type Props = {
   recipe: Recipe;
@@ -17,12 +18,13 @@ const RecipePage: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <h1>My Recipe Site</h1>
+      <Link href='/'><h1>My Recipe Site</h1></Link>
       <Link
           href = {{
               pathname: '/en/recipes/'+props.page
            }}
        >English</Link>
+      <SearchBar/>
       {recipe && (
         <main>
           {recipe?.image_url ?
@@ -32,7 +34,7 @@ const RecipePage: NextPage<Props> = (props) => {
                 
           <h2>{recipe.title}</h2>
           <p>製作者:{author}</p>
-          <p>最終更新日:{recipe.published_at.split('T')[0]}</p>
+          <p>公開日:{recipe.published_at.split('T')[0]}</p>
           <p>{recipe.description}</p>
 
           <h3>材料</h3>

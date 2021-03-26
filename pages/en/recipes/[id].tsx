@@ -3,6 +3,7 @@ import type {Recipe} from "../../../types/recipe";
 import {getRecipeById} from "../../../lib/get_recipe_by_id"
 import { getRecipeByIdEn } from '../../../lib/get_recipe_by_id_en';
 import Link from 'next/link';
+import { SearchBarEn } from '../../../components/SearchBarEn';
 
 type Props = {
   recipe: Recipe;
@@ -18,13 +19,14 @@ const RecipePage: NextPage<Props> = (props) => {
 
   return (
     <div>
-      <h1>My Recipe Site</h1>
+      <Link href='/en/'><h1>My Recipe Site</h1></Link>
+      
       <Link
               href = {{
                   pathname: '/recipes/'+props.page
               }}
        >Japanese</Link>
-
+      <SearchBarEn/>
       {recipe && (
         <main>
           {recipe?.image_url ?
@@ -34,7 +36,7 @@ const RecipePage: NextPage<Props> = (props) => {
           
           <h2>{recipe.title}</h2>
           <p>Author:{author}</p>
-          <p>Last Update:{recipe.published_at.split('T')[0]}</p>
+          <p>Published Update:{recipe.published_at.split('T')[0]}</p>
           <p>{recipe.description}</p>
 
           <h3>Ingredients</h3>
