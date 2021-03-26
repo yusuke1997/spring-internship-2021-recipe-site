@@ -9,6 +9,12 @@ import {RecipeLink} from '../components/RecipeLink'
 import { SearchBar } from '../components/SearchBar';
 import { useRouter } from 'next/router';
 
+import { css } from '@emotion/react';
+
+const next_style = css`
+    float: right;
+`
+
 
 type Props = {
   response: Response
@@ -49,7 +55,7 @@ const Home: NextPage<Props> = (props) => {
               >PREV</Link>
           })()
       }
-
+      
       {
           (() => {
               if(next !== undefined) return <Link
@@ -57,10 +63,9 @@ const Home: NextPage<Props> = (props) => {
                   pathname: '/',
                   query: {page: next}
               }}
-              >NEXT</Link>
+              　>NEXT</Link>
           })()
       }
-      
     </div>
   )
 };

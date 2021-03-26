@@ -36,7 +36,7 @@ const RecipePage: NextPage<Props> = (props) => {
           
           <h2>{recipe.title}</h2>
           <p>Author:{author}</p>
-          <p>Published Update:{recipe.published_at.split('T')[0]}</p>
+          <p>Published Date:{recipe.published_at.split('T')[0]}</p>
           <p>{recipe.description}</p>
 
           <h3>Ingredients</h3>

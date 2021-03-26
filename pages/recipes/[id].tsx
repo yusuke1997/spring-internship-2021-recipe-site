@@ -52,6 +52,7 @@ const RecipePage: NextPage<Props> = (props) => {
               <li key={i}>{step}</li>
             ))}
           </ol>
+          
         </main>
       )}
     </div>
